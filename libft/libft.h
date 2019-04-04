@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:26:46 by agusev            #+#    #+#             */
-/*   Updated: 2019/02/20 15:37:35 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/03 21:44:50 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <errno.h>
+# include <fcntl.h>
+# include "../ft_printf/ft_printf.h"
 
 typedef struct		s_list
 {
@@ -93,5 +96,6 @@ int					ft_str_is_lowercase(char *str);
 int					ft_str_is_uppercase(char *str);
 int					ft_isupper(int c);
 int					ft_islower(int c);
+char				*unsigned_itoa_base(uint32_t n, int base);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 21:39:24 by agusev            #+#    #+#              #
-#    Updated: 2019/02/20 15:37:52 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/03 19:54:34 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ft_isprint.c ft_memchr.c ft_putnbr_fd.c ft_str_is_lowercase.c ft_strnequ.c ft_to
 ft_iswhitespace.c ft_memcmp.c ft_putstr.c ft_str_is_uppercase.c ft_strnew.c \
 ft_isspace.c ft_memcpy.c ft_putstr_fd.c ft_striter.c ft_strnstr.c \
 ft_itoa.c ft_memdel.c ft_strcapitalize.c ft_striteri.c ft_strrchr.c \
-ft_islower.c ft_isupper.c
+ft_islower.c ft_isupper.c ft_unsighned_itoa_base.c
 
 
 OBJ=ft_lstadd.o ft_memmove.o ft_strcat.o ft_strjoin.o ft_strrev.o \
@@ -39,7 +39,7 @@ ft_isprint.o ft_memchr.o ft_putnbr_fd.o ft_str_is_lowercase.o ft_strnequ.o ft_to
 ft_iswhitespace.o ft_memcmp.o ft_putstr.o ft_str_is_uppercase.o ft_strnew.o \
 ft_isspace.o ft_memcpy.o ft_putstr_fd.o ft_striter.o ft_strnstr.o \
 ft_itoa.o ft_memdel.o ft_strcapitalize.o ft_striteri.o ft_strrchr.o \
-ft_islower.o ft_isupper.o
+ft_islower.o ft_isupper.o ft_unsighned_itoa_base.o
 
 INCL=./
 
@@ -51,7 +51,7 @@ $(NAME): $(SRC) libft.h
 all: $(NAME)
 
 clean:
-	/bin/rm -f $(OBJ) 
+	/bin/rm -f $(OBJ)
 
 fclean: clean
 	/bin/rm -f $(NAME)
