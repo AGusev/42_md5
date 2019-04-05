@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:23:36 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:10:14 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,34 @@ const uint32_t g_k[] = {
 	0xa4beea44, 0x4bdecfa9, 0xf6bb4b60, 0xbebfbc70,
 	0x289b7ec6, 0xeaa127fa, 0xd4ef3085, 0x04881d05,
 	0xd9d4d039, 0xe6db99e5, 0x1fa27cf8, 0xc4ac5665,
-	0xf4292244, 0x432aff97, 0xab9423a7, 0xfc93a039,
+	0xf4292564, 0x432aff97, 0xab9423a7, 0xfc93a039,
 	0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
 	0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
-	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
+	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
+};
 
 uint32_t	leftrotate(uint32_t x, uint32_t c)
 {
 	return (((x) << (c)) | ((x) >> (32 - (c))));
+}
+
+int			md5_init(unsigned char *init_mg, size_t len, t_gen *g)
+{
+	g->h0 = 0x67452301;
+	g->h1 = 0xefcdab89;
+	g->h2 = 0x98badcfe;
+	g->h3 = 0x10325476;
+	g->new_len = len + 1;
+	while (g->new_len % 64 != 56)
+		g->new_len++;
+	if (!(g->msg = malloc(g->new_len + 64)))
+		return (-1);
+	g->msg = ft_bzero(g->msg, g->new_len + 64);
+	ft_strcpy((char*)g->msg, (const char *)init_mg);
+	*(uint32_t*)(g->msg + len) = 0x80;
+	*(uint32_t*)(g->msg + g->new_len) = (uint32_t)(8 * len);
+	g->offset = 0;
+	return (0);
 }
 
 void		md5_process(t_gen *g, int i)
@@ -69,30 +89,11 @@ void		md5_process(t_gen *g, int i)
 	g->a = g->tmp;
 }
 
-int			init(unsigned char *init_mg, size_t len, t_gen *g)
-{
-	g->h0 = 0x67452301;
-	g->h1 = 0xefcdab89;
-	g->h2 = 0x98badcfe;
-	g->h3 = 0x10325476;
-	g->new_len = len + 1;
-	while (g->new_len % 64 != 56)
-		g->new_len++;
-	if (!(g->msg = malloc(g->new_len + 64)))
-		return (-1);
-	g->msg = ft_bzero(g->msg, g->new_len + 64);
-	ft_strcpy((char*)g->msg, (const char *)init_mg);
-	*(uint32_t*)(g->msg + len) = 0x80;
-	*(uint32_t*)(g->msg + g->new_len) = (uint32_t)(8 * len);
-	g->offset = 0;
-	return (0);
-}
-
 int			md5(unsigned char *init_mg, size_t len, t_gen *g)
 {
 	int i;
 
-	if (init(init_mg, len, g) == -1)
+	if (md5_init(init_mg, len, g) == -1)
 		return (-1);
 	while (g->offset < g->new_len)
 	{

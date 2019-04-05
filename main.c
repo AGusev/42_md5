@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 20:05:19 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 21:43:33 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		ft_bonus_ssl(t_gen *g, int confirm, char *red)
 			confirm = 1;
 		else if (ft_strcmp(red, "sha256") == 0)
 			confirm = 2;
-		else if (ft_strcmp(red, "sha224") == 0)
+		else if (ft_strcmp(red, "sha256") == 0)
 			confirm = 3;
 		else if (ft_strcmp(red, "quit") == 0)
 			return ;
@@ -36,7 +36,7 @@ void		ft_bonus_ssl(t_gen *g, int confirm, char *red)
 	else if (confirm == 2)
 		go_sha256(red, g);
 	else if (confirm == 3)
-		go_sha224(red, g);
+		go_sha256(red, g);
 	return ;
 }
 
@@ -46,16 +46,16 @@ void		file_no_rotat(t_gen *g, char **argv)
 	{
 		if (ft_strcmp(argv[1], "sha256") == 0)
 			ft_putstr("SHA256 (");
-		else if (ft_strcmp(argv[1], "sha224") == 0)
-			ft_putstr("SHA224 (");
+		else if (ft_strcmp(argv[1], "sha256") == 0)
+			ft_putstr("SHA256 (");
 		else
 			ft_putstr("MD5 (");
 		ft_printf("%s) = ", argv[g->pars]);
 	}
 	if (ft_strcmp(argv[1], "sha256") == 0)
 		go_sha256(g->stdin, g);
-	else if (ft_strcmp(argv[1], "sha224") == 0)
-		go_sha224(g->stdin, g);
+	else if (ft_strcmp(argv[1], "sha256") == 0)
+		go_sha256(g->stdin, g);
 	else
 		go_md5(g->stdin, g);
 	ft_putchar('\n');
@@ -85,8 +85,8 @@ void		md5_sha(t_gen *g, char **argv, int argc)
 			ft_putstr(g->stdin);
 		if (ft_strcmp(argv[1], "sha256") == 0)
 			go_sha256(g->stdin, g);
-		else if (ft_strcmp(argv[1], "sha224") == 0)
-			go_sha224(g->stdin, g);
+		else if (ft_strcmp(argv[1], "sha256") == 0)
+			go_sha256(g->stdin, g);
 		else
 			go_md5(g->stdin, g);
 		ft_putstr("\n");
@@ -112,7 +112,7 @@ int			main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	if (ft_strcmp(argv[1], "md5") == 0 || ft_strcmp(argv[1], "sha256") == 0
-		|| ft_strcmp(argv[1], "sha224") == 0)
+		|| ft_strcmp(argv[1], "sha256") == 0)
 		md5_sha(&g, argv, argc);
 	else
 	{

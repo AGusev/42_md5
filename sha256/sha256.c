@@ -6,29 +6,35 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:08:21 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:22:10 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_ssl.h"
 
-uint32_t	rigthrotat(uint32_t x, uint32_t n)
+const uint32_t g_k2[] = {
+	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+	0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+	0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+	0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+	0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+	0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+	0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+	0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+	0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+	0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+	0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+};
+
+uint32_t	rotateright(uint32_t x, uint32_t n)
 {
 	return ((((unsigned int)x >> n)) | (x << (32 - n)));
 }
-
-const uint32_t g_k2[] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01,
-	0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-	0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa,
-	0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-	0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138,
-	0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-	0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624,
-	0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f,
-	0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-};
 
 int			sha256_init(char *init_mg, size_t len, t_gen *g)
 {
@@ -59,7 +65,7 @@ int			sha256_init(char *init_mg, size_t len, t_gen *g)
 	return (0);
 }
 
-void		schedule_array(t_gen *g, int i)
+void		sha256_process(t_gen *g, int i)
 {
 	int j;
 
@@ -69,10 +75,10 @@ void		schedule_array(t_gen *g, int i)
 	j = 16;
 	while (j < 64)
 	{
-		g->tmp4 = rigthrotat(g->w[j - 15], 7) ^
-		rigthrotat(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
-		g->tmp = rigthrotat(g->w[j - 2], 17) ^
-		rigthrotat(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
+		g->tmp4 = rotateright(g->w[j - 15], 7) ^
+		rotateright(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
+		g->tmp = rotateright(g->w[j - 2], 17) ^
+		rotateright(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
 		g->w[j] = g->w[j - 16] + g->tmp4 + g->w[j - 7] + g->tmp;
 		j++;
 	}
@@ -86,12 +92,12 @@ void		schedule_array(t_gen *g, int i)
 	g->h = g->h7;
 }
 
-void		sha256_algo(t_gen *g, int j)
+void		sha256_algorithm(t_gen *g, int j)
 {
-	g->tmp = rigthrotat(g->e, 6) ^ rigthrotat(g->e, 11) ^ rigthrotat(g->e, 25);
+	g->tmp = rotateright(g->e, 6) ^ rotateright(g->e, 11) ^ rotateright(g->e, 25);
 	g->tmp2 = (g->e & g->f) ^ ((~g->e) & g->g);
 	g->tmp3 = g->h + g->tmp + g->tmp2 + g_k2[j] + g->w[j];
-	g->tmp4 = rigthrotat(g->a, 2) ^ rigthrotat(g->a, 13) ^ rigthrotat(g->a, 22);
+	g->tmp4 = rotateright(g->a, 2) ^ rotateright(g->a, 13) ^ rotateright(g->a, 22);
 	g->tmp5 = (g->a & g->b) ^ (g->a & g->c) ^ (g->b & g->c);
 	g->tmp6 = g->tmp4 + g->tmp5;
 	g->h = g->g;
@@ -113,10 +119,10 @@ int			sha256(char *init_mg, size_t len, t_gen *g)
 	i = 0;
 	while (i < g->offset)
 	{
-		schedule_array(g, i);
+		sha256_process(g, i);
 		j = -1;
 		while (++j < 64)
-			sha256_algo(g, j);
+			sha256_algorithm(g, j);
 		g->h0 += g->a;
 		g->h1 += g->b;
 		g->h2 += g->c;

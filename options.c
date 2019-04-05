@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:18:29 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 14:51:20 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void		no_ro_s(t_gen *g, char **argv)
 	{
 		if (ft_strcmp(argv[1], "sha256") == 0)
 			ft_putstr("SHA256 (\"");
-		else if (ft_strcmp(argv[1], "sha224") == 0)
-			ft_putstr("SHA224 (\"");
+		else if (ft_strcmp(argv[1], "sha256") == 0)
+			ft_putstr("SHA256 (\"");
 		else
 			ft_putstr("MD5 (\"");
 		ft_putstr(argv[g->pars]);
@@ -54,8 +54,8 @@ void		no_ro_s(t_gen *g, char **argv)
 	}
 	if (ft_strcmp(argv[1], "sha256") == 0)
 		go_sha256(argv[g->pars], g);
-	else if (ft_strcmp(argv[1], "sha224") == 0)
-		go_sha224(argv[g->pars], g);
+	else if (ft_strcmp(argv[1], "sha256") == 0)
+		go_sha256(argv[g->pars], g);
 	else
 		go_md5(argv[g->pars], g);
 	ft_putchar('\n');
@@ -65,8 +65,8 @@ void		rotate_s(t_gen *g, char **argv)
 {
 	if (ft_strcmp(argv[1], "sha256") == 0)
 		go_sha256(argv[g->pars], g);
-	else if (ft_strcmp(argv[1], "sha224") == 0)
-		go_sha224(argv[g->pars], g);
+	else if (ft_strcmp(argv[1], "sha256") == 0)
+		go_sha256(argv[g->pars], g);
 	else
 	{
 		ft_printf("MD5 (\"%s\") = ", argv[g->pars]);
@@ -109,8 +109,8 @@ int			no_such_file(t_gen *g, char **argv)
 	{
 		if (ft_strcmp(argv[1], "sha256") == 0)
 			ft_putstr("ft_ssl: sha256: ");
-		if (ft_strcmp(argv[1], "sha224") == 0)
-			ft_putstr("ft_ssl: sha224: ");
+		if (ft_strcmp(argv[1], "sha256") == 0)
+			ft_putstr("ft_ssl: sha256: ");
 		else
 			ft_putstr("ft_ssl: md5: ");
 		ft_putstr(argv[g->pars]);

@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:30:12 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 21:37:11 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:29:47 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				no_ro_s(t_gen *g, char **argv);
 void				pars_entre(t_gen *g, int argc, char **argv);
 void				ft_bonus_ssl(t_gen *g, int confirm, char *red);
 int					sha224(char *init_msg, size_t len, t_gen *g);
-uint32_t			rigthrotat(uint32_t x, uint32_t n);
+uint32_t			rotateright(uint32_t x, uint32_t n);
 void				go_sha224(char *std, t_gen *g);
 void				error(char *red);
 void				extra(t_gen *g, char **argv);

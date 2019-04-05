@@ -6,18 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:36:03 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:08:21 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:29:19 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-
-void	error(char *red)
-{
-	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nStandard\
-	commands:\n\nMessage Digest commands:\nmd5\nsha256\nsha224\n\n\
-	Cipher commands:\n", red);
-}
 
 const uint32_t g_k3[] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01,
@@ -61,7 +54,7 @@ int		sha224_init(char *init_mg, size_t len, t_gen *g)
 	return (0);
 }
 
-void	schedule_array224(t_gen *g, int i)
+void	sha224_process(t_gen *g, int i)
 {
 	int j;
 
@@ -71,10 +64,10 @@ void	schedule_array224(t_gen *g, int i)
 	j = 16;
 	while (j < 64)
 	{
-		g->tmp4 = rigthrotat(g->w[j - 15], 7) ^
-		rigthrotat(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
-		g->tmp = rigthrotat(g->w[j - 2], 17) ^
-		rigthrotat(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
+		g->tmp4 = rotateright(g->w[j - 15], 7) ^
+		rotateright(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
+		g->tmp = rotateright(g->w[j - 2], 17) ^
+		rotateright(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
 		g->w[j] = g->w[j - 16] + g->tmp4 + g->w[j - 7] + g->tmp;
 		j++;
 	}
@@ -88,12 +81,12 @@ void	schedule_array224(t_gen *g, int i)
 	g->h = g->h7;
 }
 
-void	sha224_algo(t_gen *g, int j)
+void	sha224_algorithm(t_gen *g, int j)
 {
-	g->tmp = rigthrotat(g->e, 6) ^ rigthrotat(g->e, 11) ^ rigthrotat(g->e, 25);
+	g->tmp = rotateright(g->e, 6) ^ rotateright(g->e, 11) ^ rotateright(g->e, 25);
 	g->tmp2 = (g->e & g->f) ^ ((~g->e) & g->g);
 	g->tmp3 = g->h + g->tmp + g->tmp2 + g_k3[j] + g->w[j];
-	g->tmp4 = rigthrotat(g->a, 2) ^ rigthrotat(g->a, 13) ^ rigthrotat(g->a, 22);
+	g->tmp4 = rotateright(g->a, 2) ^ rotateright(g->a, 13) ^ rotateright(g->a, 22);
 	g->tmp5 = (g->a & g->b) ^ (g->a & g->c) ^ (g->b & g->c);
 	g->tmp6 = g->tmp4 + g->tmp5;
 	g->h = g->g;
@@ -115,10 +108,10 @@ int		sha224(char *init_mg, size_t len, t_gen *g)
 	i = 0;
 	while (i < g->offset)
 	{
-		schedule_array224(g, i);
+		sha224_process(g, i);
 		j = -1;
 		while (++j < 64)
-			sha224_algo(g, j);
+			sha224_algorithm(g, j);
 		g->h0 += g->a;
 		g->h1 += g->b;
 		g->h2 += g->c;

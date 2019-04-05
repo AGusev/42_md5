@@ -6,12 +6,12 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 13:55:51 by agusev            #+#    #+#              #
-#    Updated: 2019/04/04 13:55:52 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ft_ssl_md5
-recreating md5, sha256 and sha 224 algorithms
+recreating md5, sha256 and sha 256 algorithms
 
 
 ## Project
@@ -24,7 +24,7 @@ FT_SSL_MD5 is a 42 Project that mimics libc ls function
 1) -s, -q, -r -p
 
 * Bonus:
-1) sha224
+1) sha256
 
 ## Sources
 * https://en.wikipedia.org/wiki/SHA-2
