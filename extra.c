@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:21:42 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/03 23:21:53 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 16:12:01 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	extra(t_gen *g, char **argv)
 	else
 		go_md5(g->stdin, g);
 	if (!g->f_q)
-		printf(" %s\n", argv[g->pars]);
+		ft_printf(" %s\n", argv[g->pars]);
 	else
 		ft_printf("\n");
 }

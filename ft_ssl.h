@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:30:12 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/03 23:24:19 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/04 21:37:11 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <string.h>
 # include <stdint.h>
 # include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "libft/header/libft.h"
 
 typedef struct		s_gen
 {
@@ -85,4 +84,5 @@ uint32_t			rigthrotat(uint32_t x, uint32_t n);
 void				go_sha224(char *std, t_gen *g);
 void				error(char *red);
 void				extra(t_gen *g, char **argv);
+
 #endif
