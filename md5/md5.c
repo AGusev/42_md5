@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:23:36 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:47:29 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_ssl.h"
+#include "../ssl.h"
 
 const uint32_t g_r[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17,
 	22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16,
@@ -47,15 +47,15 @@ int			md5_init(unsigned char *init_mg, size_t len, t_gen *g)
 	g->h1 = 0xefcdab89;
 	g->h2 = 0x98badcfe;
 	g->h3 = 0x10325476;
-	g->new_len = len + 1;
-	while (g->new_len % 64 != 56)
-		g->new_len++;
-	if (!(g->msg = malloc(g->new_len + 64)))
+	g->length = len + 1;
+	while (g->length % 64 != 56)
+		g->length++;
+	if (!(g->msg = malloc(g->length + 64)))
 		return (-1);
-	g->msg = ft_bzero(g->msg, g->new_len + 64);
+	g->msg = ft_bzero(g->msg, g->length + 64);
 	ft_strcpy((char*)g->msg, (const char *)init_mg);
 	*(uint32_t*)(g->msg + len) = 0x80;
-	*(uint32_t*)(g->msg + g->new_len) = (uint32_t)(8 * len);
+	*(uint32_t*)(g->msg + g->length) = (uint32_t)(8 * len);
 	g->offset = 0;
 	return (0);
 }
@@ -95,7 +95,7 @@ int			md5(unsigned char *init_mg, size_t len, t_gen *g)
 
 	if (md5_init(init_mg, len, g) == -1)
 		return (-1);
-	while (g->offset < g->new_len)
+	while (g->offset < g->length)
 	{
 		g->w = (uint32_t *)(g->msg + g->offset);
 		g->a = g->h0;

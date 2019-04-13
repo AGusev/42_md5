@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:36:03 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:29:19 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:58:59 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 const uint32_t g_k3[] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01,
@@ -37,8 +37,8 @@ int		sha224_init(char *init_mg, size_t len, t_gen *g)
 	g->h5 = 0x68581511;
 	g->h6 = 0x64f98fa7;
 	g->h7 = 0xbefa4fa4;
-	g->new_len = len * 8;
-	g->offset = 1 + ((g->new_len + 16 + 64) / 512);
+	g->length = len * 8;
+	g->offset = 1 + ((g->length + 16 + 64) / 512);
 	if (!(g->msg_32 = malloc(16 * g->offset * 4)))
 		return (-1);
 	ft_bzero(g->msg_32, 16 * g->offset * 4);
@@ -50,7 +50,7 @@ int		sha224_init(char *init_mg, size_t len, t_gen *g)
 		g->msg_32[i] = revers_uint32(g->msg_32[i]);
 		i++;
 	}
-	g->msg_32[((g->offset * 512 - 64) / 32) + 1] = g->new_len;
+	g->msg_32[((g->offset * 512 - 64) / 32) + 1] = g->length;
 	return (0);
 }
 
@@ -64,10 +64,10 @@ void	sha224_process(t_gen *g, int i)
 	j = 16;
 	while (j < 64)
 	{
-		g->tmp4 = rotateright(g->w[j - 15], 7) ^
-		rotateright(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
-		g->tmp = rotateright(g->w[j - 2], 17) ^
-		rotateright(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
+		g->tmp4 = ror(g->w[j - 15], 7) ^
+		ror(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
+		g->tmp = ror(g->w[j - 2], 17) ^
+		ror(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
 		g->w[j] = g->w[j - 16] + g->tmp4 + g->w[j - 7] + g->tmp;
 		j++;
 	}
@@ -83,10 +83,10 @@ void	sha224_process(t_gen *g, int i)
 
 void	sha224_algorithm(t_gen *g, int j)
 {
-	g->tmp = rotateright(g->e, 6) ^ rotateright(g->e, 11) ^ rotateright(g->e, 25);
+	g->tmp = ror(g->e, 6) ^ ror(g->e, 11) ^ ror(g->e, 25);
 	g->tmp2 = (g->e & g->f) ^ ((~g->e) & g->g);
 	g->tmp3 = g->h + g->tmp + g->tmp2 + g_k3[j] + g->w[j];
-	g->tmp4 = rotateright(g->a, 2) ^ rotateright(g->a, 13) ^ rotateright(g->a, 22);
+	g->tmp4 = ror(g->a, 2) ^ ror(g->a, 13) ^ ror(g->a, 22);
 	g->tmp5 = (g->a & g->b) ^ (g->a & g->c) ^ (g->b & g->c);
 	g->tmp6 = g->tmp4 + g->tmp5;
 	g->h = g->g;

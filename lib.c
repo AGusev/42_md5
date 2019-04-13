@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:21:26 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/03 23:22:11 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:20:54 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 char		*add0(char *str)
 {

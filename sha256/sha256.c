@@ -6,40 +6,25 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:22:10 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 21:55:45 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_ssl.h"
+#include "../ssl.h"
+#include "sha256.h"
 
-const uint32_t g_k2[] = {
-	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
-	0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-	0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
-	0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-	0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-	0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-	0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
-	0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-	0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
-	0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-	0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-};
-
-uint32_t	rotateright(uint32_t x, uint32_t n)
+// right rotation by n bits
+uint32_t	ror(uint32_t x, uint32_t n)
 {
 	return ((((unsigned int)x >> n)) | (x << (32 - n)));
 }
 
-int			sha256_init(char *init_mg, size_t len, t_gen *g)
+// Computation of the hash of a message begins by preparing the message
+int			sha256_prepare_message(char *init_mg, size_t len, t_gen *g)
 {
 	int i;
 
+//The initial hash value H(0) is the following sequence of 32-bit words
 	g->h0 = 0x6a09e667;
 	g->h1 = 0xbb67ae85;
 	g->h2 = 0x3c6ef372;
@@ -48,24 +33,29 @@ int			sha256_init(char *init_mg, size_t len, t_gen *g)
 	g->h5 = 0x9b05688c;
 	g->h6 = 0x1f83d9ab;
 	g->h7 = 0x5be0cd19;
-	g->new_len = len * 8;
-	g->offset = 1 + ((g->new_len + 16 + 64) / 512);
+//
+// The length of the message M in bits
+	g->length = len * 8;
+// Append the bit \1" to the end of the message
+// The length of the padded message should now be a multiple of 512 bit
+	g->offset = ((g->length + 16 + 64) / 512) + 1;
 	if (!(g->msg_32 = malloc(16 * g->offset * 4)))
 		return (-1);
 	ft_bzero(g->msg_32, 16 * g->offset * 4);
 	ft_memcpy((char *)g->msg_32, init_mg, ft_strlen(init_mg));
 	((char*)g->msg_32)[ft_strlen(init_mg)] = 0x80;
+// Parse the message into N 512-bit blocks M(1), M(2) ... M(N)
 	i = 0;
 	while (i < (g->offset * 16) - 1)
 	{
 		g->msg_32[i] = revers_uint32(g->msg_32[i]);
 		i++;
 	}
-	g->msg_32[((g->offset * 512 - 64) / 32) + 1] = g->new_len;
+	g->msg_32[((g->offset * 512 - 64) / 32) + 1] = g->length;
 	return (0);
 }
 
-void		sha256_process(t_gen *g, int i)
+void		sha256_message_schedule(t_gen *g, int i)
 {
 	int j;
 
@@ -73,15 +63,28 @@ void		sha256_process(t_gen *g, int i)
 	ft_bzero(g->w, 512);
 	ft_memcpy(g->w, &g->msg_32[i * 16], 16 * 32);
 	j = 16;
+	// Expanded message blocks W0; W1, ... W63 are computed as follows via the SHA-256 message schedule
+	// For j = 16 to 63
 	while (j < 64)
 	{
-		g->tmp4 = rotateright(g->w[j - 15], 7) ^
-		rotateright(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
-		g->tmp = rotateright(g->w[j - 2], 17) ^
-		rotateright(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
+		g->tmp4 = ror(g->w[j - 15], 7) ^
+		ror(g->w[j - 15], 18) ^ (g->w[j - 15] >> 3);
+		g->tmp = ror(g->w[j - 2], 17) ^
+		ror(g->w[j - 2], 19) ^ (g->w[j - 2] >> 10);
 		g->w[j] = g->w[j - 16] + g->tmp4 + g->w[j - 7] + g->tmp;
 		j++;
 	}
+/*
+Six logical functions are used in SHA-256. Each of these functions operates on
+32-bit words and produces a 32-bit word as output. Each function is dened as
+follows:
+1			CH(x,y,z) (((x) & (y)) ^ (~(x) & (z)))
+2			MA(x,y,z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
+3			E0(x) (ROR(x, 2) ^ ROR(x, 13) ^ ROR(x, 22))
+4			E1(x) (ROR(x, 6) ^ ROR(x, 11) ^ ROR(x, 25))
+5			SI0(x) (ROR(x, 7) ^ ROR(x, 18) ^ ((x) >> 3))
+6			SI1(x) (ROR(x, 17) ^ ROR(x, 19) ^ ((x) >> 10))
+*/
 	g->a = g->h0;
 	g->b = g->h1;
 	g->c = g->h2;
@@ -94,35 +97,42 @@ void		sha256_process(t_gen *g, int i)
 
 void		sha256_algorithm(t_gen *g, int j)
 {
-	g->tmp = rotateright(g->e, 6) ^ rotateright(g->e, 11) ^ rotateright(g->e, 25);
+// Apply the SHA-256 compression function to update registers a, b, ... h.
+// Compute Ch(e,f,g), Maj(a,b,c), SI0(a), SI1(e), and Wj (see above)
+	g->tmp = ror(g->e, 6) ^ ror(g->e, 11) ^ ror(g->e, 25);
 	g->tmp2 = (g->e & g->f) ^ ((~g->e) & g->g);
-	g->tmp3 = g->h + g->tmp + g->tmp2 + g_k2[j] + g->w[j];
-	g->tmp4 = rotateright(g->a, 2) ^ rotateright(g->a, 13) ^ rotateright(g->a, 22);
+	g->tmp3 = g->h + g->tmp + g->tmp2 + g_k[j] + g->w[j];
+	g->tmp4 = ror(g->a, 2) ^ ror(g->a, 13) ^ ror(g->a, 22);
 	g->tmp5 = (g->a & g->b) ^ (g->a & g->c) ^ (g->b & g->c);
 	g->tmp6 = g->tmp4 + g->tmp5;
 	g->h = g->g;
 	g->g = g->f;
 	g->f = g->e;
-	g->e = g->d + g->tmp3;
+	g->e = g->d + g->tmp3;//d + T1
 	g->d = g->c;
 	g->c = g->b;
 	g->b = g->a;
-	g->a = g->tmp3 + g->tmp6;
+	g->a = g->tmp3 + g->tmp6;//T1 + T2
 }
 
-int			sha256(char *init_mg, size_t len, t_gen *g)
+int			sha256_main_loop(char *init_mg, size_t len, t_gen *g)
 {
 	int i;
 	int j;
 
-	sha256_init(init_mg, len, g);
+// The hash computation proceeds as follows
+	sha256_prepare_message(init_mg, len, g);
+// For i = 1 to N (N = number of blocks in the padded message)
 	i = 0;
 	while (i < g->offset)
 	{
-		sha256_process(g, i);
+// Initialize registers a; b; c; d; e; f ; g; h with the (i  1)st intermediate hash value
+		sha256_message_schedule(g, i);
 		j = -1;
+// Apply the SHA-256 compression function
 		while (++j < 64)
 			sha256_algorithm(g, j);
+//  Compute the i^th intermediate hash value H^(i)
 		g->h0 += g->a;
 		g->h1 += g->b;
 		g->h2 += g->c;

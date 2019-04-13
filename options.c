@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:18:29 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:20:54 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 void		pars_entre(t_gen *g, int argc, char **argv)
 {
@@ -108,11 +108,11 @@ int			no_such_file(t_gen *g, char **argv)
 	if ((g->fd = open(argv[g->pars], O_RDWR)) < 0)
 	{
 		if (ft_strcmp(argv[1], "sha256") == 0)
-			ft_putstr("ft_ssl: sha256: ");
+			ft_putstr("ssl: sha256: ");
 		if (ft_strcmp(argv[1], "sha256") == 0)
-			ft_putstr("ft_ssl: sha256: ");
+			ft_putstr("ssl: sha256: ");
 		else
-			ft_putstr("ft_ssl: md5: ");
+			ft_putstr("ssl: md5: ");
 		ft_putstr(argv[g->pars]);
 		ft_putstr(": No such file or directory\n");
 		g->pars++;

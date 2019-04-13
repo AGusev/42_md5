@@ -6,23 +6,21 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 19:26:49 by agusev            #+#    #+#              #
-#    Updated: 2019/04/04 21:54:22 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/12 20:28:56 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-.PHONY:		$(NAME) all clean fclean re
 
 NAME = ft_ssl
 
 FLAGS = -Wall -Wextra -Werror
 
 SRC =	*.c \
-		md5/*.c \
-		sha256/*.c
+		sha256/*.c \
+		md5/*.c
 
 LIBFT = libft/Makefile
 
-INCLUDE = md5.h
+INCLUDE = ssl.h
 
 OBJ = *o
 
@@ -35,7 +33,7 @@ $(NAME):
 
 clean:
 	@rm -f $(OBJ)
-	@echo "\033[31mObjects files \033[1;31m$(OBJ)\033[1;0m\033[31m remcsoved.\033[0m"
+	@echo "\033[31mObjects files \033[1;31m$(OBJ)\033[1;0m\033[31m removed.\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)

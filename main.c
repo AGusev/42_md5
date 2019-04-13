@@ -6,17 +6,17 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 20:05:19 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:21:38 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 void		ft_bonus_ssl(t_gen *g, int confirm, char *red)
 {
 	while (confirm == 0)
 	{
-		write(1, "ft_ssl> ", 8);
+		write(1, "ssl> ", 8);
 		fake_gnl(&red);
 		if (ft_strcmp(red, "md5") == 0)
 			confirm = 1;
@@ -105,7 +105,7 @@ int			main(int argc, char **argv)
 	t_gen	g;
 	if (argc == 1)
 	{
-		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
+		ft_printf("usage: ssl command [command opts] [command args]\n");
 	}
  	if (argc == 1)
 		ft_bonus_ssl(&g, 0, NULL);
@@ -116,7 +116,7 @@ int			main(int argc, char **argv)
 		md5_sha(&g, argv, argc);
 	else
 	{
-		ft_printf("ft_ssl: Error: '%s' is an invalid command.\
+		ft_printf("ssl: Error: '%s' is an invalid command.\
 		\n\nStandard commands:\
 		\n\nMessage Digest commands:\nmd5\nsha256\n\nCipher\
 		commands:\n", argv[1]);

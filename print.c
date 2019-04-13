@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:29:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:27:19 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 21:25:16 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 void		go_md5(char *std, t_gen *g)
 {
@@ -66,7 +66,7 @@ void		go_sha256(char *std, t_gen *g)
 {
 	char	*tmp;
 
-	if (sha256(std, ft_strlen(std), g) == -1)
+	if (sha256_main_loop(std, ft_strlen(std), g) == -1)
 		return ;
 	tmp = unsigned_itoa_base(g->h0, 16);
 	add0(tmp);

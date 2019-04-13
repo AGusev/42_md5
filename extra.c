@@ -6,11 +6,11 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:21:42 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:20:54 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "ssl.h"
 
 void	extra(t_gen *g, char **argv)
 {
@@ -28,7 +28,7 @@ void	extra(t_gen *g, char **argv)
 
 void	error(char *red)
 {
-	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nStandard\
+	ft_printf("ssl: Error: '%s' is an invalid command.\n\nStandard\
 	commands:\n\nMessage Digest commands:\nmd5\nsha256\nsha256\n\n\
 	Cipher commands:\n", red);
 }

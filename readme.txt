@@ -6,16 +6,16 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 13:55:51 by agusev            #+#    #+#              #
-#    Updated: 2019/04/04 22:25:00 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/12 20:20:54 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ft_ssl_md5
+# ssl_md5
 recreating md5, sha256 and sha 256 algorithms
 
 
 ## Project
-FT_SSL_MD5 is a 42 Project that mimics libc ls function
+ssl_MD5 is a 42 Project that mimics libc ls function
 
 * Basic functions:
 1) md5, sha256
@@ -34,8 +34,8 @@ FT_SSL_MD5 is a 42 Project that mimics libc ls function
 ## Installation
 ```
 $> make
-$> ./ft_ssl_md5 {hash_function} {flag} {file}
+$> ./ssl_md5 {hash_function} {flag} {file}
 $> works with stdin too:
-$> 1)./ft_ssl_md5 {hash_function}
+$> 1)./ssl_md5 {hash_function}
 $> 2) Hit Enter, enter text, ctrl + d to output
 ```
