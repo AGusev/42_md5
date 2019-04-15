@@ -102,7 +102,7 @@ int					md5_main_loop(unsigned char *init_msg, size_t len, t_gen *g);
 void				md5_print(char *std, t_gen *g);
 // sha-256
 int					sha256_main_loop(char *init_msg, size_t len, t_gen *g);
-void				apply_flagsha256(t_gen *g);
+void				sha256_print_cont(t_gen *g);
 void				sha256_prepare_print(char *std, t_gen *g);
 // sha-224
 int					sha224_main_loop(char *init_msg, size_t len, t_gen *g);

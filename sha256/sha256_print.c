@@ -6,14 +6,14 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:29:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 16:18:56 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:51:47 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ssl.h"
 #include "sha256.h"
 
-void		apply_flagsha256(t_gen *g)
+void		sha256_print_cont(t_gen *g)
 {
 	char	*tmp;
 
@@ -57,5 +57,5 @@ void		sha256_prepare_print(char *std, t_gen *g)
 	add_zero(tmp);
 	ft_putstr(tmp);
 	free(tmp);
-	apply_flagsha256(g);
+	sha256_print_cont(g);
 }

@@ -6,22 +6,12 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 23:14:36 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 00:05:00 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ssl.h"
 #include "md5.h"
-
-// specifies the per-round shift amounts
-static const uint32_t g_r[] =
-{
-	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17,
-	22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14,
-	20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11,
-	16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6,
-	10, 15, 21
-};
 
 // Computation of the hash of a message begins by preparing the message
 int			md5_prepare_message(unsigned char *init_msg, size_t len, t_gen *g)
@@ -89,19 +79,21 @@ void		md5_algorithm(t_gen *g, int i)
 int			md5_main_loop(unsigned char *init_msg, size_t len, t_gen *g)
 {
 	int i;
-
 	if (md5_prepare_message(init_msg, len, g) == -1)
 		return (-1);
 	while (g->offset < g->length)
 	{
+// Initialize registers a; b; c; d; e; f ; g; h with the (i  1)st intermediate hash value
 		g->w = (uint32_t*)(g->msg + g->offset);
 		g->a = g->h0;
 		g->b = g->h1;
 		g->c = g->h2;
 		g->d = g->h3;
 		i = -1;
+// Apply the MD5compression function
 		while (++i < 64)
 			md5_algorithm(g, i);
+//  Compute the i^th intermediate hash value H^(i)
 		g->h0 += g->a;
 		g->h1 += g->b;
 		g->h2 += g->c;

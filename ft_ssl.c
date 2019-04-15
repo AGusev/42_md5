@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 20:05:19 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 23:02:14 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:38:53 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,6 @@ void		start(t_gen *g, int ac, char **av)
 		get_line(&g->stdin, 0);
 		if (g->f_p)
 			ft_putstr(g->stdin);
-/*
-		if (ac > 0)
-		{
-			sha512_prepare_print(g->stdin, g);
-			exit(0);
-		}
-*/
 		if (ft_strcmp(av[1], "sha224") == 0)
 			sha224_prepare_print(g->stdin, g);
 		else if (ft_strcmp(av[1], "sha256") == 0)
@@ -96,9 +89,9 @@ int			main(int ac, char **av)
 		return (0);
 	}
 	if (ft_strcmp(av[1], "md5") == 0
-	|| ft_strcmp(av[1], "sha224") == 0
-	|| ft_strcmp(av[1], "sha256") == 0
-	|| ft_strcmp(av[1], "sha512") == 0)
+		|| ft_strcmp(av[1], "sha224") == 0
+		|| ft_strcmp(av[1], "sha256") == 0
+		|| ft_strcmp(av[1], "sha512") == 0)
 		start(&g, ac, av);
 	else
 	{

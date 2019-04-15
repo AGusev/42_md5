@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:29:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 22:52:10 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:45:05 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		set_flags(t_gen *g, int flag, char *read)
 {
 	while (flag == 0)
 	{
-		write(1, "ssl> ", 5);
+		write(1, "ft_ssl> ", 8);
 		get_new_line(&read);
 		if (ft_strcmp(read, "md5") == 0)
 			flag = 1;

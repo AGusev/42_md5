@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 20:22:38 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 20:24:21 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:53:38 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ uint64_t	ror_64(uint64_t x, uint64_t n)
 }
 
 // left rotation by n bits
-uint32_t	lor(uint32_t x, uint32_t n)
+uint32_t	lor(uint32_t x, uint32_t c)
 {
-	return (((x) << (n)) | ((x) >> (32 - (n))));
+	return (((x) << (c)) | ((x) >> (32 - (c))));
 }
 
 // reverse by n bits
