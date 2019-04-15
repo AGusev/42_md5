@@ -6,13 +6,13 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:21:26 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 20:20:54 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 17:14:53 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ssl.h"
 
-char		*add0(char *str)
+char		*add_zero(char *str)
 {
 	int i;
 
@@ -43,7 +43,7 @@ uint64_t	revers_uint64(uint64_t n)
 			| (n & 0x00000000000000ff) << 56);
 }
 
-void		fake_gnl(char **ptr)
+void		get_new_line(char **ptr)
 {
 	char	c[2];
 	int		verif;
@@ -67,7 +67,7 @@ void		fake_gnl(char **ptr)
 	ptr[0] = str;
 }
 
-void		fake_gnl_all(char **ptr, int fd)
+void		get_line(char **ptr, int fd)
 {
 	char	c[2];
 	int		verif;

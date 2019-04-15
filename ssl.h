@@ -30,6 +30,14 @@ typedef struct		s_gen
 	uint32_t		h5;
 	uint32_t		h6;
 	uint32_t		h7;
+	uint64_t		h00;
+	uint64_t		h01;
+	uint64_t		h02;
+	uint64_t		h03;
+	uint64_t		h04;
+	uint64_t		h05;
+	uint64_t		h06;
+	uint64_t		h07;
 	uint32_t		a;
 	uint32_t		b;
 	uint32_t		c;
@@ -63,26 +71,38 @@ typedef struct		s_gen
 	int				fd;
 }					t_gen;
 
-int					md5(unsigned char *init_msg, size_t len, t_gen *g);
+// md5
+int					md5_main_loop(unsigned char *init_mg, size_t len, t_gen *g);
+void				md5_print(char *std, t_gen *g);
+uint32_t			lor(uint32_t x, uint32_t n);
+// sha-256
 int					sha256_main_loop(char *init_msg, size_t len, t_gen *g);
+void				apply_flagsha256(t_gen *g);
+void				sha256_prepare_print(char *std, t_gen *g);
+// sha-224
+int					sha224_main_loop(char *init_mg, size_t len, t_gen *g);
+void				sha224_prepare_print(char *std, t_gen *g);
+// sha-384
+
+// sha-512
+int					sha512_main_loop(char *init_mg, size_t len, t_gen *g);
+void				sha512_prepare_print(char *std, t_gen *g);
+
+
+// general functions
 uint32_t			revers_uint32(uint32_t n);
 uint64_t			revers_uint64(uint64_t n);
-char				*add0(char *str);
-void				fake_gnl(char **ptr);
-void				fake_gnl_all(char **ptr, int fd);
-void				go_md5(char *std, t_gen *g);
-void				print_sha256(t_gen *g);
-void				go_sha256(char *std, t_gen *g);
+char				*add_zero(char *str);
+void				get_new_line(char **ptr);
+void				get_line(char **ptr, int fd);
 int					no_such_file(t_gen *g, char **argv);
-int					print_s(t_gen *g, char **argv, int argc);
-void				rotate_s(t_gen *g, char **argv);
-void				no_ro_s(t_gen *g, char **argv);
-void				pars_entre(t_gen *g, int argc, char **argv);
-void				ft_bonus_ssl(t_gen *g, int confirm, char *red);
-int					sha224(char *init_msg, size_t len, t_gen *g);
-uint32_t			ror(uint32_t x, uint32_t n);
-void				go_sha224(char *std, t_gen *g);
-void				error(char *red);
+int					apply_flags(t_gen *g, char **argv, int argc);
+void				rotation_print(t_gen *g, char **argv);
+void				no_rotation_print(t_gen *g, char **argv);
+void				flag_parsing(t_gen *g, int argc, char **argv);
+void				set_flags(t_gen *g, int flag, char *read);
+void				error(char *read);
 void				extra(t_gen *g, char **argv);
+uint32_t			ror(uint32_t x, uint32_t n);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 19:26:49 by agusev            #+#    #+#              #
-#    Updated: 2019/04/12 20:28:56 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/14 16:56:03 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,11 @@ NAME = ft_ssl
 FLAGS = -Wall -Wextra -Werror
 
 SRC =	*.c \
+		md5/*.c \
+		sha224/*.c \
 		sha256/*.c \
-		md5/*.c
+		sha512/*.c
+
 
 LIBFT = libft/Makefile
 

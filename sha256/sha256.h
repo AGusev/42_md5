@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 20:33:05 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 21:39:39 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 14:32:48 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 # define SHA256_H
 
 # include <sys/types.h>
-
-# define SHA256_TPL		"SHA256 (%s) = %s\n"
-# define SHA256_TPL_R	"%s %s\n"
-
-# define ROR(a,b) (((a) >> (b)) | ((a) << (32 - (b))))
-
-# define CH(x,y,z) (((x) & (y)) ^ (~(x) & (z)))
-# define MA(x,y,z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
-# define E0(x) (ROR(x, 2) ^ ROR(x, 13) ^ ROR(x, 22))
-# define E1(x) (ROR(x, 6) ^ ROR(x, 11) ^ ROR(x, 25))
-# define SI0(x) (ROR(x, 7) ^ ROR(x, 18) ^ ((x) >> 3))
-# define SI1(x) (ROR(x, 17) ^ ROR(x, 19) ^ ((x) >> 10))
 
 static const u_int g_k[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1,

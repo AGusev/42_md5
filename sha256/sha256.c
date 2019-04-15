@@ -6,18 +6,12 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 21:55:45 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 13:42:58 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ssl.h"
 #include "sha256.h"
-
-// right rotation by n bits
-uint32_t	ror(uint32_t x, uint32_t n)
-{
-	return ((((unsigned int)x >> n)) | (x << (32 - n)));
-}
 
 // Computation of the hash of a message begins by preparing the message
 int			sha256_prepare_message(char *init_mg, size_t len, t_gen *g)
