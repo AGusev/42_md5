@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:21:26 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 17:14:53 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:50:02 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,22 @@ char		*add_zero(char *str)
 	return (str);
 }
 
-uint32_t	revers_uint32(uint32_t n)
-{
-	return ((n >> 24) | ((n & 0xff0000) >> 8) |
-		((n & 0xff00) << 8) | (n << 24));
-}
-
-uint64_t	revers_uint64(uint64_t n)
-{
-	return ((n & 0xff00000000000000) >> 56 \
-			| (n & 0x00ff000000000000) >> 40 \
-			| (n & 0x0000ff0000000000) >> 24 \
-			| (n & 0x000000ff00000000) >> 8 \
-			| (n & 0x00000000ff000000) << 8 \
-			| (n & 0x0000000000ff0000) << 24 \
-			| (n & 0x000000000000ff00) << 40 \
-			| (n & 0x00000000000000ff) << 56);
-}
-
 void		get_new_line(char **ptr)
 {
 	char	c[2];
-	int		verif;
+	int		check;
 	char	*str;
 	char	*tmp;
 
-	verif = 42;
+	check = 2;
 	c[1] = 0;
 	str = ft_strdup("");
-	while (verif > 0)
+	while (check > 0)
 	{
-		verif = read(0, c, 1);
+		check = read(0, c, 1);
 		if (c[0] == 10)
-			verif = 0;
-		if (verif == 0)
+			check = 0;
+		if (check == 0)
 			break ;
 		tmp = str;
 		str = ft_strjoin(str, c);
@@ -70,17 +52,17 @@ void		get_new_line(char **ptr)
 void		get_line(char **ptr, int fd)
 {
 	char	c[2];
-	int		verif;
+	int		check;
 	char	*str;
 	char	*tmp;
 
 	c[1] = 0;
-	verif = 42;
+	check = 2;
 	str = ft_strdup("");
-	while (verif > 0)
+	while (check > 0)
 	{
-		verif = read(fd, c, 1);
-		if (verif == 0)
+		check = read(fd, c, 1);
+		if (check == 0)
 		{
 			break ;
 		}

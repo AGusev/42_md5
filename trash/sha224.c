@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:36:03 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 20:58:59 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:32:04 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ const uint32_t g_k3[] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-int		sha224_init(char *init_mg, size_t len, t_gen *g)
+int		sha224_init(char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 
@@ -42,8 +42,8 @@ int		sha224_init(char *init_mg, size_t len, t_gen *g)
 	if (!(g->msg_32 = malloc(16 * g->offset * 4)))
 		return (-1);
 	ft_bzero(g->msg_32, 16 * g->offset * 4);
-	ft_memcpy((char *)g->msg_32, init_mg, ft_strlen(init_mg));
-	((char*)g->msg_32)[ft_strlen(init_mg)] = 0x80;
+	ft_memcpy((char *)g->msg_32, init_msg, ft_strlen(init_msg));
+	((char*)g->msg_32)[ft_strlen(init_msg)] = 0x80;
 	i = 0;
 	while (i < (g->offset * 16) - 1)
 	{
@@ -99,12 +99,12 @@ void	sha224_algorithm(t_gen *g, int j)
 	g->a = g->tmp3 + g->tmp6;
 }
 
-int		sha224(char *init_mg, size_t len, t_gen *g)
+int		sha224(char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 	int j;
 
-	sha224_init(init_mg, len, g);
+	sha224_init(init_msg, len, g);
 	i = 0;
 	while (i < g->offset)
 	{

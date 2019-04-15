@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5.c                                              :+:      :+:    :+:   */
+/*   dfdf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:23:36 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 20:47:29 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:32:04 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint32_t	leftrotate(uint32_t x, uint32_t c)
 	return (((x) << (c)) | ((x) >> (32 - (c))));
 }
 
-int			md5_init(unsigned char *init_mg, size_t len, t_gen *g)
+int			md5_init(unsigned char *init_msg, size_t len, t_gen *g)
 {
 	g->h0 = 0x67452301;
 	g->h1 = 0xefcdab89;
@@ -53,7 +53,7 @@ int			md5_init(unsigned char *init_mg, size_t len, t_gen *g)
 	if (!(g->msg = malloc(g->length + 64)))
 		return (-1);
 	g->msg = ft_bzero(g->msg, g->length + 64);
-	ft_strcpy((char*)g->msg, (const char *)init_mg);
+	ft_strcpy((char*)g->msg, (const char *)init_msg);
 	*(uint32_t*)(g->msg + len) = 0x80;
 	*(uint32_t*)(g->msg + g->length) = (uint32_t)(8 * len);
 	g->offset = 0;
@@ -89,11 +89,11 @@ void		md5_process(t_gen *g, int i)
 	g->a = g->tmp;
 }
 
-int			md5(unsigned char *init_mg, size_t len, t_gen *g)
+int			md5(unsigned char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 
-	if (md5_init(init_mg, len, g) == -1)
+	if (md5_init(init_msg, len, g) == -1)
 		return (-1);
 	while (g->offset < g->length)
 	{

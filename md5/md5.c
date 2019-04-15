@@ -6,21 +6,32 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 15:41:17 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 23:14:36 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ssl.h"
 #include "md5.h"
 
+// specifies the per-round shift amounts
+static const uint32_t g_r[] =
+{
+	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17,
+	22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14,
+	20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11,
+	16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6,
+	10, 15, 21
+};
+
 // Computation of the hash of a message begins by preparing the message
-int			md5_prepare_message(unsigned char *init_mg, size_t len, t_gen *g)
+int			md5_prepare_message(unsigned char *init_msg, size_t len, t_gen *g)
 {
 //The initial hash value H(0) is the following sequence of 32-bit words
 	g->h0 = 0x67452301;
 	g->h1 = 0xefcdab89;
 	g->h2 = 0x98badcfe;
 	g->h3 = 0x10325476;
+
 // The length of the message M in bits
 // Pre-processing: adding a single 1 bit
 	g->length = len + 1;
@@ -31,7 +42,7 @@ int			md5_prepare_message(unsigned char *init_mg, size_t len, t_gen *g)
 	if (!(g->msg = malloc(g->length + 64)))
 		return (-1);
 	g->msg = ft_bzero(g->msg, g->length + 64);
-	ft_strcpy((char*)g->msg, (const char *)init_mg);
+	ft_strcpy((char*)g->msg, (const char *)init_msg);
 	*(uint32_t*)(g->msg + len) = 0x80;
 	*(uint32_t*)(g->msg + g->length) = (uint32_t)(8 * len);
 	g->offset = 0;
@@ -48,7 +59,7 @@ void		md5_algorithm(t_gen *g, int i)
 //		G(X,Y,Z) = (x & z) | (y & ~z)
 //		H(X,Y,Z) = x ^ y ^ z
 //		I(X,Y,Z) = y ^ (x | ~z)
-if (i < 16)
+	if (i < 16)
 	{
 		g->f = (g->b & g->c) | ((~g->b) & g->d);
 		g->g = i;
@@ -75,15 +86,15 @@ if (i < 16)
 	g->a = g->tmp;
 }
 
-int			md5_main_loop(unsigned char *init_mg, size_t len, t_gen *g)
+int			md5_main_loop(unsigned char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 
-	if (md5_prepare_message(init_mg, len, g) == -1)
+	if (md5_prepare_message(init_msg, len, g) == -1)
 		return (-1);
 	while (g->offset < g->length)
 	{
-		g->w = (uint32_t *)(g->msg + g->offset);
+		g->w = (uint32_t*)(g->msg + g->offset);
 		g->a = g->h0;
 		g->b = g->h1;
 		g->c = g->h2;

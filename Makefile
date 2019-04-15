@@ -6,7 +6,7 @@
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 19:26:49 by agusev            #+#    #+#              #
-#    Updated: 2019/04/14 16:56:03 by agusev           ###   ########.fr        #
+#    Updated: 2019/04/14 23:01:14 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,3 +43,17 @@ fclean: clean
 	@echo "\033[31mBin \033[1;31m$(NAME)\033[1;0m\033[31m removed.\033[0m"
 
 re: fclean all
+	@echo "abc" | openssl md5
+	@echo "abc" | ./ft_ssl md5
+	@echo "\n"
+	@echo "abc" | openssl sha224
+	@echo "abc" | ./ft_ssl sha224
+	@echo "\n"
+	@echo "abc" | openssl sha256
+	@echo "abc" | ./ft_ssl sha256
+	@echo "\n"
+	@echo "abc" | openssl sha512
+	@echo "abc" | ./ft_ssl sha512
+	@echo "\n"
+	@rm -f $(NAME) $(OBJ)
+

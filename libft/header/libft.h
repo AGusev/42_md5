@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 15:24:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/04 15:27:20 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 21:57:04 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char				*ft_itoa_base_for_uint(unsigned long long value,
 					int base, char c);
 
 char				*unsigned_itoa_base(uint32_t n, int base);
+char				*unsigned_itoa_base_64(uint64_t n, int base);
 char				*ft_itoaf(uintmax_t n);
 char				*ft_get_binary(unsigned char octet);
 int					ft_wcharlen(wchar_t wc);

@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 13:42:58 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:32:04 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "sha256.h"
 
 // Computation of the hash of a message begins by preparing the message
-int			sha256_prepare_message(char *init_mg, size_t len, t_gen *g)
+int			sha256_prepare_message(char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 
@@ -36,8 +36,8 @@ int			sha256_prepare_message(char *init_mg, size_t len, t_gen *g)
 	if (!(g->msg_32 = malloc(16 * g->offset * 4)))
 		return (-1);
 	ft_bzero(g->msg_32, 16 * g->offset * 4);
-	ft_memcpy((char *)g->msg_32, init_mg, ft_strlen(init_mg));
-	((char*)g->msg_32)[ft_strlen(init_mg)] = 0x80;
+	ft_memcpy((char *)g->msg_32, init_msg, ft_strlen(init_msg));
+	((char*)g->msg_32)[ft_strlen(init_msg)] = 0x80;
 // Parse the message into N 512-bit blocks M(1), M(2) ... M(N)
 	i = 0;
 	while (i < (g->offset * 16) - 1)
@@ -109,13 +109,13 @@ void		sha256_algorithm(t_gen *g, int j)
 	g->a = g->tmp3 + g->tmp6;//T1 + T2
 }
 
-int			sha256_main_loop(char *init_mg, size_t len, t_gen *g)
+int			sha256_main_loop(char *init_msg, size_t len, t_gen *g)
 {
 	int i;
 	int j;
 
 // The hash computation proceeds as follows
-	sha256_prepare_message(init_mg, len, g);
+	sha256_prepare_message(init_msg, len, g);
 // For i = 1 to N (N = number of blocks in the padded message)
 	i = 0;
 	while (i < g->offset)
