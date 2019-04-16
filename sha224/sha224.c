@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 22:32:04 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 18:25:41 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ int			sha224_prepare_message(char *init_msg, size_t len, t_gen *g)
 	g->length = len * 8;
 // Append the bit \1" to the end of the message
 // The length of the padded message should now be a multiple of 512 bit
-	g->offset = 1 + ((g->length + 16 + 64) / 512);
-	if (!(g->msg_32 = malloc(16 * g->offset * 4)))
+	g->padding = 1 + ((g->length + 16 + 64) / 512);
+	if (!(g->msg_32 = malloc(16 * g->padding * 4)))
 		return (-1);
-	ft_bzero(g->msg_32, 16 * g->offset * 4);
+	ft_bzero(g->msg_32, 16 * g->padding * 4);
 	ft_memcpy((char *)g->msg_32, init_msg, ft_strlen(init_msg));
 	((char*)g->msg_32)[ft_strlen(init_msg)] = 0x80;
 // Parse the message into N 512-bit blocks M(1), M(2) ... M(N)
 	i = 0;
-	while (i < (g->offset * 16) - 1)
+	while (i < (g->padding * 16) - 1)
 	{
 		g->msg_32[i] = revers_uint32(g->msg_32[i]);
 		i++;
 	}
-	g->msg_32[((g->offset * 512 - 64) / 32) + 1] = g->length;
+	g->msg_32[((g->padding * 512 - 64) / 32) + 1] = g->length;
 	return (0);
 }
 
@@ -118,7 +118,7 @@ int			sha224_main_loop(char *init_msg, size_t len, t_gen *g)
 	sha224_prepare_message(init_msg, len, g);
 // For i = 1 to N (N = number of blocks in the padded message)
 	i = 0;
-	while (i < g->offset)
+	while (i < g->padding)
 	{
 // Initialize registers a; b; c; d; e; f ; g; h with the (i  1)st intermediate hash value
 		sha224_message_schedule(g, i);

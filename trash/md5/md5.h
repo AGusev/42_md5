@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   md5.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpetruse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 12:28:17 by mpetruse          #+#    #+#             */
-/*   Updated: 2018/08/22 23:18:07 by mpetruse         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:25:41 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_gen
 	int				i;
 	uint32_t		tmp;
 	uint32_t		bits_init_msg_len;
-	int				offset;
+	int				padding;
 	uint32_t		f_p;
 	uint32_t		f_q;
 	uint32_t		f_r;

@@ -75,7 +75,7 @@ typedef struct		s_gen
 	uint32_t		*msg_32;
 	int				i;
 	uint32_t		msg_len_32;
-	int				offset;
+	int				padding;
 // flags
 	uint32_t		f_p;
 	uint32_t		f_q;
