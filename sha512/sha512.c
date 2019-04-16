@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/15 18:25:43 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 19:20:55 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int			sha512_prepare_message(char *init_msg, size_t len, t_gen *g)
 	g->length = len * 8;
 // Append the bit \1" to the end of the message
 // The length of the padded message should now be a multiple of 1024 bit
+//
+// ERROR ERROR ERROR --------------------------------------------------->
 	g->padding = ((g->length + 16 + 128) / 1024) + 1;
 	if (!(g->msg_64 = malloc(32 * g->padding * 4)))
 		return (-1);
@@ -45,6 +47,7 @@ int			sha512_prepare_message(char *init_msg, size_t len, t_gen *g)
 		i++;
 	}
 	g->msg_64[((g->padding * 1024 - 128) / 32) + 1] = g->length;
+// ERROR ERROR ERROR --------------------------------------------------->
 	return (0);
 }
 
@@ -54,7 +57,7 @@ void		sha512_message_schedule(t_gen *g, int i)
 
 	g->ww = malloc(1024);
 	ft_bzero(g->ww, 1024);
-	ft_memcpy(g->ww, &g->msg_64[i * 16], 16 * 128);
+	ft_memcpy(g->ww, &g->msg_64[i * 16], 1024);
 	j = 16;
 	// Expanded message blocks W0; W1, ... W63 are computed as follows via the SHA-512 message schedule
 	// For j = 16 to 79
@@ -125,8 +128,10 @@ int			sha512_main_loop(char *init_msg, size_t len, t_gen *g)
 		sha512_message_schedule(g, i);
 		j = -1;
 // Apply the SHA-512 compression function
-		while (++j < 79)
+		while (++j < 80)
+		{
 			sha512_algorithm(g, j);
+		}
 //  Compute the i^th intermediate hash value H^(i)
 		g->h00 += g->aa;
 		g->h01 += g->bb;

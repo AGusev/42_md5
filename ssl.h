@@ -116,7 +116,7 @@ uint32_t			revers_uint32(uint32_t n);
 uint64_t			revers_uint64(uint64_t n);
 uint32_t			lor(uint32_t x, uint32_t n);
 uint32_t			ror(uint32_t x, uint32_t n);
-uint64_t			ror_64(uint64_t x, uint8_t n);
+uint64_t			ror_64(uint64_t x, uint64_t n);
 // general
 int					apply_flags(t_gen *g, int ac, char **av);
 char				*add_zero(char *str);
