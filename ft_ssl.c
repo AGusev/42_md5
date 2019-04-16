@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 20:05:19 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 23:38:53 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 13:25:05 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		rotate_file_not(t_gen *g, char **av)
 	else if (ft_strcmp(av[1], "sha256") == 0)
 		sha256_prepare_print(g->stdin, g);
 	else if (ft_strcmp(av[1], "sha512") == 0)
-		sha256_prepare_print(g->stdin, g);
+		sha512_prepare_print(g->stdin, g);
 	else
 		md5_print(g->stdin, g);
 	ft_putchar('\n');
@@ -64,7 +64,7 @@ void		start(t_gen *g, int ac, char **av)
 		else if (ft_strcmp(av[1], "sha256") == 0)
 			sha256_prepare_print(g->stdin, g);
 		else if (ft_strcmp(av[1], "sha512") == 0)
-			sha256_prepare_print(g->stdin, g);
+			sha512_prepare_print(g->stdin, g);
 		else
 			md5_print(g->stdin, g);
 		ft_putstr("\n");

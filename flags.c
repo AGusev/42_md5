@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:18:29 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 22:00:40 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 13:25:43 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		no_rotation_print(t_gen *g, char **av)
 	else if (ft_strcmp(av[1], "sha224") == 0)
 		sha224_prepare_print(av[g->pars], g);
 	else if (ft_strcmp(av[1], "sha512") == 0)
-		sha256_prepare_print(av[g->pars], g);
+		sha512_prepare_print(av[g->pars], g);
 	else
 		md5_print(av[g->pars], g);
 	ft_putchar('\n');
@@ -72,7 +72,7 @@ void		rotation_print(t_gen *g, char **av)
 	else if (ft_strcmp(av[1], "sha224") == 0)
 		sha256_prepare_print(av[g->pars], g);
 	else if (ft_strcmp(av[1], "sha512") == 0)
-		sha256_prepare_print(av[g->pars], g);
+		sha512_prepare_print(av[g->pars], g);
 	else
 	{
 		ft_printf("MD5 (\"%s\") = ", av[g->pars]);

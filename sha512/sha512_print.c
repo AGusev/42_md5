@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:29:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 21:58:25 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 16:30:53 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		sha512_cont_print(t_gen *g)
 	add_zero(temp);
 	ft_putstr(temp);
 	free(temp);
-	temp = unsigned_itoa_base_64(g->h04, 16);
+ 	temp = unsigned_itoa_base_64(g->h04, 16);
 	add_zero(temp);
 	ft_putstr(temp);
 	free(temp);
@@ -59,3 +59,4 @@ void		sha512_prepare_print(char *std, t_gen *g)
 	free(temp);
 	sha512_cont_print(g);
 }
+

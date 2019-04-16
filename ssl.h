@@ -42,6 +42,7 @@ typedef struct		s_gen
 	uint64_t		h05;
 	uint64_t		h06;
 	uint64_t		h07;
+	//
 	uint64_t		temp;
 	uint64_t		temp1;
 	uint64_t		temp2;
@@ -73,7 +74,6 @@ typedef struct		s_gen
 	unsigned char	*msg;
 	uint32_t		*msg_32;
 	int				i;
-
 	uint32_t		msg_len_32;
 	int				offset;
 // flags
@@ -116,7 +116,7 @@ uint32_t			revers_uint32(uint32_t n);
 uint64_t			revers_uint64(uint64_t n);
 uint32_t			lor(uint32_t x, uint32_t n);
 uint32_t			ror(uint32_t x, uint32_t n);
-uint64_t			ror_64(uint64_t x, uint64_t n);
+uint64_t			ror_64(uint64_t x, uint8_t n);
 // general
 int					apply_flags(t_gen *g, int ac, char **av);
 char				*add_zero(char *str);

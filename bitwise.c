@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 20:22:38 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 23:53:38 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 17:10:44 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ uint32_t	ror(uint32_t x, uint32_t n)
 	return ((((unsigned int)x >> n)) | (x << (32 - n)));
 }
 
-uint64_t	ror_64(uint64_t x, uint64_t n)
+uint64_t	ror_64(uint64_t x, uint8_t n)
 {
 	return ((((unsigned int)x >> n)) | (x << (64 - n)));
 }

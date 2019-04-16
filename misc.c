@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 19:29:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/14 23:45:05 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/15 13:24:00 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		extra(t_gen *g, char **av)
 	else if (ft_strcmp(av[1], "sha256") == 0)
 		sha256_prepare_print(g->stdin, g);
 	else if (ft_strcmp(av[1], "sha512") == 0)
-		sha256_prepare_print(g->stdin, g);
+		sha512_prepare_print(g->stdin, g);
 	else
 		md5_print(g->stdin, g);
 	if (!g->f_q)
@@ -65,6 +65,6 @@ void		set_flags(t_gen *g, int flag, char *read)
 	else if (flag == 3)
 		sha256_prepare_print(read, g);
 	else if (flag == 4)
-		sha256_prepare_print(read, g);
+		sha512_prepare_print(read, g);
 	return ;
 }
