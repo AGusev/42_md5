@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:36:03 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/15 18:25:41 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/16 15:18:11 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ int		sha224_init(char *init_msg, size_t len, t_gen *g)
 	g->h6 = 0x64f98fa7;
 	g->h7 = 0xbefa4fa4;
 	g->length = len * 8;
-	g->padding = 1 + ((g->length + 16 + 64) / 512);
-	if (!(g->msg_32 = malloc(16 * g->padding * 4)))
+	g->padded = 1 + ((g->length + 16 + 64) / 512);
+	if (!(g->msg_32 = malloc(16 * g->padded * 4)))
 		return (-1);
-	ft_bzero(g->msg_32, 16 * g->padding * 4);
+	ft_bzero(g->msg_32, 16 * g->padded * 4);
 	ft_memcpy((char *)g->msg_32, init_msg, ft_strlen(init_msg));
 	((char*)g->msg_32)[ft_strlen(init_msg)] = 0x80;
 	i = 0;
-	while (i < (g->padding * 16) - 1)
+	while (i < (g->padded * 16) - 1)
 	{
 		g->msg_32[i] = revers_uint32(g->msg_32[i]);
 		i++;
 	}
-	g->msg_32[((g->padding * 512 - 64) / 32) + 1] = g->length;
+	g->msg_32[((g->padded * 512 - 64) / 32) + 1] = g->length;
 	return (0);
 }
 
@@ -106,7 +106,7 @@ int		sha224(char *init_msg, size_t len, t_gen *g)
 
 	sha224_init(init_msg, len, g);
 	i = 0;
-	while (i < g->padding)
+	while (i < g->padded)
 	{
 		sha224_process(g, i);
 		j = -1;

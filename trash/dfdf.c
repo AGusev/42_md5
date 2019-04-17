@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:23:36 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/15 18:25:41 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/16 15:18:11 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			md5_init(unsigned char *init_msg, size_t len, t_gen *g)
 	ft_strcpy((char*)g->msg, (const char *)init_msg);
 	*(uint32_t*)(g->msg + len) = 0x80;
 	*(uint32_t*)(g->msg + g->length) = (uint32_t)(8 * len);
-	g->padding = 0;
+	g->padded = 0;
 	return (0);
 }
 
@@ -95,9 +95,9 @@ int			md5(unsigned char *init_msg, size_t len, t_gen *g)
 
 	if (md5_init(init_msg, len, g) == -1)
 		return (-1);
-	while (g->padding < g->length)
+	while (g->padded < g->length)
 	{
-		g->w = (uint32_t *)(g->msg + g->padding);
+		g->w = (uint32_t *)(g->msg + g->padded);
 		g->a = g->h0;
 		g->b = g->h1;
 		g->c = g->h2;
@@ -109,7 +109,7 @@ int			md5(unsigned char *init_msg, size_t len, t_gen *g)
 		g->h1 += g->b;
 		g->h2 += g->c;
 		g->h3 += g->d;
-		g->padding += 64;
+		g->padded += 64;
 	}
 	free(g->msg);
 	return (0);

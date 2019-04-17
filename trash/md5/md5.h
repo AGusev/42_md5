@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 12:28:17 by mpetruse          #+#    #+#             */
-/*   Updated: 2019/04/15 18:25:41 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/16 15:18:11 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_gen
 	int				i;
 	uint32_t		tmp;
 	uint32_t		bits_init_msg_len;
-	int				padding;
+	int				padded;
 	uint32_t		f_p;
 	uint32_t		f_q;
 	uint32_t		f_r;

@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/15 19:20:55 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/16 17:55:05 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,19 @@ int			sha512_prepare_message(char *init_msg, size_t len, t_gen *g)
 // The length of the padded message should now be a multiple of 1024 bit
 //
 // ERROR ERROR ERROR --------------------------------------------------->
-	g->padding = ((g->length + 16 + 128) / 1024) + 1;
-	if (!(g->msg_64 = malloc(32 * g->padding * 4)))
+	g->padded = ((g->length + 128) / 1024) + 1;
+	if (!(g->msg_64 = malloc(512 * g->padded)))
 		return (-1);
-	ft_bzero(g->msg_64, 32 * g->padding * 4);
+	ft_bzero(g->msg_64, 512 * g->padded);
 	ft_memcpy((char *)g->msg_64, init_msg, ft_strlen(init_msg));
 	((char*)g->msg_64)[ft_strlen(init_msg)] = 0x80;
 // Parse the message into N 1024-bit blocks M(1), M(2) ... M(N)
-	i = 0;
-	while (i < (g->padding * 16) - 1)
+	i = -1;
+	while (++i < (g->padded * 16) - 0)
 	{
 		g->msg_64[i] = revers_uint64(g->msg_64[i]);
-		i++;
 	}
-	g->msg_64[((g->padding * 1024 - 128) / 32) + 1] = g->length;
+	g->msg_64[((g->padded * 1024 - 128) / 64) + 1] = g->length;
 // ERROR ERROR ERROR --------------------------------------------------->
 	return (0);
 }
@@ -55,9 +54,9 @@ void		sha512_message_schedule(t_gen *g, int i)
 {
 	int j;
 
-	g->ww = malloc(1024);
-	ft_bzero(g->ww, 1024);
-	ft_memcpy(g->ww, &g->msg_64[i * 16], 1024);
+	g->ww = malloc(1024 + 1);
+	ft_bzero(g->ww, 1024 + 1);
+	ft_memcpy(g->ww, &g->msg_64[i], 1024 + 1);
 	j = 16;
 	// Expanded message blocks W0; W1, ... W63 are computed as follows via the SHA-512 message schedule
 	// For j = 16 to 79
@@ -122,7 +121,7 @@ int			sha512_main_loop(char *init_msg, size_t len, t_gen *g)
 	sha512_prepare_message(init_msg, len, g);
 // For i = 1 to N (N = number of blocks in the padded message)
 	i = 0;
-	while (i < g->padding)
+	while (i < g->padded)
 	{
 // Initialize registers a; b; c; d; e; f ; g; h with the (i  1)st intermediate hash value
 		sha512_message_schedule(g, i);
