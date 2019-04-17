@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:35:37 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/16 17:56:08 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/16 18:08:20 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			sha256_prepare_message(char *init_msg, size_t len, t_gen *g)
 	g->length = len * 8;
 // Append the bit \1" to the end of the message
 // The length of the padded message should now be a multiple of 512 bit
-	g->padded = 1 + ((g->length + 64 + 1) / 512);
+	g->padded = 1 + ((g->length + 64) / 512);
 	if (!(g->msg_32 = malloc(256 * g->padded)))
 		return (-1);
 	ft_bzero(g->msg_32, 256 * g->padded );
