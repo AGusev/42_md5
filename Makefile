@@ -5,55 +5,68 @@
 #                                                     +:+ +:+         +:+      #
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/04/03 19:26:49 by agusev            #+#    #+#              #
-#    Updated: 2019/04/16 17:55:45 by agusev           ###   ########.fr        #
+#    Created: 2019/04/18 23:30:31 by agusev            #+#    #+#              #
+#    Updated: 2019/04/19 04:11:12 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ssl
 
-FLAGS = -Wall -Wextra -Werror
+SRC = 	./*.c
 
-SRC =	*.c \
-		md5/*.c \
-		sha224/*.c \
-		sha256/*.c \
-		sha512/*.c
+MLIB = make -C libftprintf
 
-
-LIBFT = libft/Makefile
-
-INCLUDE = ssl.h
-
-OBJ = *o
+LIB = libftprintf/libftprintf.a
 
 all: $(NAME)
 
-$(NAME):
-	@gcc $(FLAGS) -g -c $(SRC) -I $(INCLUDE)
-	@gcc $(FLAGS) -g -o $(NAME) $(OBJ) -L./libft -lft
-	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
+$(NAME): $(SRC)
+#	$(MLIB)
+	gcc -Wall -Wextra -Werror $(SRC) $(LIB) -o $(NAME)
 
 clean:
-	@rm -f $(OBJ)
-	@echo "\033[31mObjects files \033[1;31m$(OBJ)\033[1;0m\033[31m removed.\033[0m"
+	rm -f $(OBJ)
+	$(MLIB) clean
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "\033[31mBin \033[1;31m$(NAME)\033[1;0m\033[31m removed.\033[0m"
+	rm -f $(NAME)
+#	$(MLIB) fclean
 
 re: fclean all
+
+r: fclean all
+	@echo
+	@openssl md5 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@./ft_ssl md5 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@openssl sha224 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@./ft_ssl sha224 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@openssl sha256 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@./ft_ssl sha256 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@openssl sha384 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@./ft_ssl sha384 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@openssl sha512 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@./ft_ssl sha512 /nfs/2019/a/agusev/Desktop/projects/ft_ssl/test
+	@echo
+	@echo
 	@echo "abc" | openssl md5
 	@echo "abc" | ./ft_ssl md5
-	@echo "\n"
 	@echo "abc" | openssl sha224
 	@echo "abc" | ./ft_ssl sha224
-	@echo "\n"
 	@echo "abc" | openssl sha256
 	@echo "abc" | ./ft_ssl sha256
-	@echo "\n"
+	@echo "abc" | openssl sha384
+	@echo "abc" | ./ft_ssl sha384
 	@echo "abc" | openssl sha512
 	@echo "abc" | ./ft_ssl sha512
 	@echo "\n"
-	@rm -f $(NAME) $(OBJ)
-
+	@echo "\n"
+	@rm -f $(NAME)

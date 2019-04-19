@@ -1,133 +1,139 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ssl.h                                           :+:      :+:    :+:   */
+/*   ssl.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 19:30:12 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/12 20:18:10 by agusev           ###   ########.fr       */
+/*   Created: 2019/04/18 23:35:18 by agusev            #+#    #+#             */
+/*   Updated: 2019/04/19 03:17:01 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SSL_H
-# define SSL_H
+#define SSL_H
 
-# include <stdlib.h>
-# include <string.h>
-# include <stdint.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <sys/errno.h>
-# include "libft/header/libft.h"
+#include "./libftprintf/libft/libft.h"
+typedef unsigned int	t_uint;
+typedef unsigned char	t_uchar;
+typedef unsigned long long int	t_ullint;
 
-typedef struct		s_gen
+#define	ALGORITHM_NUM 7
+#define	HASH_NUM 5
+#define	CIPHER_NUM 1 * 2 // (encode & decode)
+
+# define BUFF_SIZE 1
+
+# define A 0
+# define B 1
+# define C 2
+# define D 3
+# define E 4
+# define F 5
+# define G 6
+# define H 7
+# define E0 0
+# define MA 1
+# define T2 2
+# define E1 3
+# define CH 4
+# define T1 5
+
+typedef struct	s_flags
 {
-	int				length;
-	uint32_t		h0;
-	uint32_t		h1;
-	uint32_t		h2;
-	uint32_t		h3;
-	uint32_t		h4;
-	uint32_t		h5;
-	uint32_t		h6;
-	uint32_t		h7;
-//64
-	uint64_t		h00;
-	uint64_t		h01;
-	uint64_t		h02;
-	uint64_t		h03;
-	uint64_t		h04;
-	uint64_t		h05;
-	uint64_t		h06;
-	uint64_t		h07;
-	//
-	uint64_t		temp;
-	uint64_t		temp1;
-	uint64_t		temp2;
-	uint64_t		temp3;
-	uint64_t		temp4;
-	uint64_t		temp5;
-	uint64_t		temp6;
-	uint64_t		*msg_64;
-	uint64_t		aa;
-	uint64_t		bb;
-	uint64_t		cc;
-	uint64_t		dd;
-	uint64_t		ee;
-	uint64_t		ff;
-	uint64_t		gg;
-	uint64_t		hh;
-	uint64_t		*ww;
-	uint64_t		msg_len_64;
-//
-	uint32_t		a;
-	uint32_t		b;
-	uint32_t		c;
-	uint32_t		d;
-	uint32_t		e;
-	uint32_t		f;
-	uint32_t		g;
-	uint32_t		h;
-	uint32_t		*w;
-	unsigned char	*msg;
-	uint32_t		*msg_32;
-	int				i;
-	uint32_t		msg_len_32;
-	int				padded;
-// flags
-	uint32_t		f_p;
-	uint32_t		f_q;
-	uint32_t		f_r;
-	uint32_t		f_s;
-//
-	uint32_t		tmp;
-	uint32_t		tmp1;
-	uint32_t		tmp2;
-	uint32_t		tmp3;
-	uint32_t		tmp4;
-	uint32_t		tmp5;
-	uint32_t		tmp6;
-	uint32_t		maj;
-	uint32_t		ch;
-	char			*stdin;
-	int				nb_file;
-	int				pars;
-	int				fd;
-}					t_gen;
+	int p; // hash
+	int q;
+	int r;
+	int s;
+	int d; // cipher
+	int e;
+	int i;
+	int o;
+	int ff;
+	char *algo_name; // other
+	int alg_index;
+	int file;
+	int stdin;
+	int hash;
+	int cipher;
+}				t_flags;
 
-// md5
-int					md5_main_loop(unsigned char *init_msg, size_t len, t_gen *g);
-void				md5_print(char *std, t_gen *g);
-// sha-256
-int					sha256_main_loop(char *init_msg, size_t len, t_gen *g);
-void				sha256_print_cont(t_gen *g);
-void				sha256_prepare_print(char *std, t_gen *g);
-// sha-224
-int					sha224_main_loop(char *init_msg, size_t len, t_gen *g);
-void				sha224_prepare_print(char *std, t_gen *g);
-// sha-384
-// sha-512
-int					sha512_main_loop(char *init_msg, size_t len, t_gen *g);
-void				sha512_prepare_print(char *std, t_gen *g);
-// bitwise operations
-uint32_t			revers_uint32(uint32_t n);
-uint64_t			revers_uint64(uint64_t n);
-uint32_t			lor(uint32_t x, uint32_t n);
-uint32_t			ror(uint32_t x, uint32_t n);
-uint64_t			ror_64(uint64_t x, uint64_t n);
-// general
-int					apply_flags(t_gen *g, int ac, char **av);
-char				*add_zero(char *str);
-void				get_new_line(char **ptr);
-void				get_line(char **ptr, int fd);
-int					no_such_file(t_gen *g, char **av);
-void				rotation_print(t_gen *g, char **av);
-void				no_rotation_print(t_gen *g, char **av);
-void				flag_parsing(t_gen *g, int ac, char **av);
-void				set_flags(t_gen *g, int flag, char *read);
-void				error(char *read);
-void				extra(t_gen *g, char **av);
+typedef	struct	s_algorithm
+{
+	char			*name;
+	struct	s_algorithm	*next;
+}				t_algorithm;
+
+typedef struct	s_md
+{
+  unsigned int	a;
+  unsigned int	aa;
+  struct s_md		*next;
+}				t_md;
+
+typedef void	(*t_alg)(char *, size_t);
+
+// create/delete struct'
+t_algorithm			*algorithm_create(char *command);
+void				algorithm_delete(t_algorithm *algorithm);
+t_flags				*flags_struct(void);
+void				flags_struct_del(t_flags *flags);
+t_md				*md5_struct(void);
+void				md5_del_struct(t_md *md);
+
+// read args
+void				read_input(t_flags *flags, t_algorithm *algorithm, int argc, char **argv);
+int					search_for_algorithm(t_algorithm *algorithm, t_flags *flags, char *argv);
+
+// errors
+void				error_algorithm(t_algorithm *algorithm, char *arg);
+void				error_option(char *arg);
+void				error_file(char *arg, t_flags *flags);
+void				error_usage();
+
+// read FD
+char				*fd_read(int fd);
+
+// searching right algorithmrithm
+void				search_for_func(char *input,  t_flags *flags);
+
+// bits operations
+t_uint				fBit(t_uint x, t_uint y, t_uint z);
+t_uint				gBit(t_uint x, t_uint y, t_uint z);
+t_uint				hBit(t_uint x, t_uint y, t_uint z);
+t_uint				lBit(t_uint x, t_uint y, t_uint z);
+t_uint				ROR_32(t_uint a, int s);
+t_ullint			ROR_64(t_ullint x, int n);
+
+// alignment for sha256 & MD5
+t_uchar	*align(ssize_t size, char *input);
+ssize_t	define_size(ssize_t len);
+
+// bonus from stdin
+char				**from_stdin(int *argc, t_flags *flags);
+char				**split_into_array(char *arr, char elem);
+
+// sha512 384
+t_uchar				*sha512_align(t_ullint size, char *input);
+t_ullint			sha512_define_size(t_ullint len);
+t_ullint			*sha512_to_int(t_uchar *bef, ssize_t news, t_ullint s);
+t_ullint			*sha512_len(t_ullint len, t_ullint *data, t_ullint i);
+t_ullint			*sha512_main_loop(t_ullint s, t_ullint *a, t_ullint *hash);
+
+// sha 256 224
+t_uint				*sha256_to_int(t_uchar *bef, ssize_t new_size, ssize_t size);
+t_uint				*sha224_len(ssize_t len, t_uint *data, ssize_t i);
+t_uint				*sha256_main_loop(ssize_t size, t_uint *arr, t_uint *hash);
+
+// hash algorithm
+void				sha256(char *input, size_t len);
+void				MD5(char *input, size_t len);
+void				sha512(char *input, size_t len);
+void				sha384(char *input, size_t len);
+void				sha224(char *input, size_t len);
+
+// cipher algorithm
+void				base_64(char *input, size_t len);
+void 				dec_base_64(char *input, size_t len);
 
 #endif
