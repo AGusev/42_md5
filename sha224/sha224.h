@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 17:57:32 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/21 00:53:40 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/21 02:54:33 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../sha256/sha256.h"
 
-# define SHA224_TPL		"SHA256 (%s) = %s\n"
+# define SHA224_TPL		"SHA224(%s)= %s\n"
 # define SHA224_R		"%s %s\n"
 
 void	sha224_init(t_ctx *ctx);

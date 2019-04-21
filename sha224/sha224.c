@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:24:40 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/21 01:36:53 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/21 03:09:03 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*sha224_digest(u_char digest[32])
 
 	result = ft_strnew(0);
 	i = 0;
-	while (i < 24)
+	while (i < 28)
 	{
 		s = ft_ssprintf("%02x", digest[i]);
 		ft_strsetdel(&result, ft_strjoin(result, s));

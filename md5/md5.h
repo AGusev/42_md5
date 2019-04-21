@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:28:41 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/21 00:39:05 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/21 01:53:08 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <sys/types.h>
 
-# define MD5_TPL	"MD5 (%s) = %s\n"
+# define MD5_TPL	"MD5(%s)= %s\n"
 # define MD5_TPL_R	"%s %s\n"
 
 # define S11 7

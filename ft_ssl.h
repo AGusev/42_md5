@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:24:33 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/21 01:38:23 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/21 03:09:46 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ typedef struct		s_strings
 	size_t			f;
 	char			*s;
 }					t_strings;
-
-//processes
 void				process_md5(size_t f, int cnt, char **av);
 void				process_sha224(size_t f, int cnt, char **av);
 void				process_sha256(size_t f, int cnt, char **av);

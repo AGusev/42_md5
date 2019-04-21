@@ -6,7 +6,7 @@
 /*   By: agusev <agusev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 17:57:32 by agusev            #+#    #+#             */
-/*   Updated: 2019/04/21 00:53:38 by agusev           ###   ########.fr       */
+/*   Updated: 2019/04/21 01:53:26 by agusev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../sha512/sha512.h"
 
-# define SHA384_TPL		"SHA384 (%s) = %s\n"
+# define SHA384_TPL		"SHA384(%s)= %s\n"
 # define SHA384_R		"%s %s\n"
 
 void	sha384_init(t_ctx *ctx);
