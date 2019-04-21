@@ -5,24 +5,26 @@
 #                                                     +:+ +:+         +:+      #
 #    By: agusev <agusev@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/04/18 23:30:31 by agusev            #+#    #+#              #
-#    Updated: 2019/04/20 18:49:17 by agusev           ###   ########.fr        #
+#    Created: 2019/03/20 11:27:05 by agusev            #+#    #+#              #
+#    Updated: 2019/04/21 01:26:28 by agusev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ssl
+NAME	=	ft_ssl
+SRC	=		./*c \
+			./md5/*c \
+			./sha224/*c \
+			./sha256/*c \
+			./sha384/*c \
+			./sha512/*c
 
-SRC =	./functions/*.c \
-		./md5_sha/*.c \
-		./extra/*.c \
-		./read_print/*.c
-
-LIB = libftprintf/libftprintf.a
+LIB = libft/libft.a
+PRF = libft/libftprintf.a
 
 all: $(NAME)
 
 $(NAME): $(SRC)
-	gcc -w -Wall -Wextra -Werror $(SRC) $(LIB) -o $(NAME)
+	gcc -w -Wall -Wextra -Werror $(SRC) $(LIB) $(PRF) -o $(NAME)
 
 clean:
 
