@@ -1,8 +1,8 @@
 
-# This project is nn introduction to cryptographic hashing algorithms
+# This project is an introduction to cryptographic hashing algorithms
 
-This prorgamm is my project as a part of the of the security branch at [42 Silicon Valley](https://www.42.us.org). 
-The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/OpenSSL) functionality.
+<ul><li>This prorgamm is my project as a part of the of the security branch at [42 Silicon Valley](https://www.42.us.org)</li></ul>
+<ul><li>The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/OpenSSL) functionality</li></ul>
 
 ## Implemented Hash Functions
 
@@ -16,21 +16,17 @@ The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/Ope
 ## How to use?
 
 1. In terminal excecute <code>git clone https://github.com/agusev/my_cryptographic_hashin_algorithms.git</code>
-2. Build
+2. To build, in terminal excecute <code>make</code>
 
-     `make`
-
-2. Launch
-
-     `./ft_ssl command [command opts] [command args]`
+2. To launch, in terminal excecute <code>./ft_ssl command [command opts] [command args]</code>`
 
 
 ## Usage
 
 * command:
-    `md5`
-    `sha224`
-    `sha256`
+    <code>md5</code>`
+    <code>sha224</code>`
+    <code>sha256</code>`
     `sha384`
     `sha512`
     
