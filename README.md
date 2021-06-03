@@ -24,9 +24,9 @@
 ## Usage
 
 * command:
-    <code>md5</code>`
-    <code>sha224</code>`
-    <code>sha256</code>`
+    <code>md5</code>
+    <code>sha224</code>
+    <code>sha256</code>
     `sha384`
     `sha512`
     
