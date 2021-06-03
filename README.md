@@ -27,8 +27,8 @@
     <code>md5</code>
     <code>sha224</code>
     <code>sha256</code>
-    `sha384`
-    `sha512`
+    <code>sha384</code>
+    <code>sha512</code>
     
 * command opts: `[-pqr] [-s string] [files ...]`
 
@@ -43,12 +43,12 @@
 
 ## Examples
 
-`./ft_ssl md5 -s "Hello World"`
+<code>./ft_ssl md5 -s "Hello World"</code>
 
 MD5 ("Hello World") = b10a8db164e0754105b7a99be72e3fe5
 
 
-`echo "Some important message" | ./ft_ssl sha256 -p -s "Hello World" Makefile`
+<code>echo "Some important message" | ./ft_ssl sha256 -p -s "Hello World" Makefile</code>
 
 Some important message
 
