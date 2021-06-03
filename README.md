@@ -15,7 +15,7 @@ The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/Ope
 
 ## How to use?
 
-1. git clone https://github.com/agusev/42_md5.git
+1. In terminal excecute <code>git clone https://github.com/agusev/my_cryptographic_hashin_algorithms.git</code>
 2. Build
 
      `make`
