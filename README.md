@@ -50,7 +50,7 @@ MD5 ("Hello World") = b10a8db164e0754105b7a99be72e3fe5
 
 <code>echo "Some important message" | ./ft_ssl sha256 -p -s "Hello World" Makefile</code>
 
-Some important message
+<output>Some important message</output>
 
 31d1104978e7f73a0da6375f1b0d9add90bf96fbc5ef4dc9fb16804697ef2894
 
