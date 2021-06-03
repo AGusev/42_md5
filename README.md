@@ -1,5 +1,5 @@
 
-# ft_ssl [md5] [sha256] - An introduction to cryptographic hashing algorithms
+# This project is nn introduction to cryptographic hashing algorithms
 
 This prorgamm is my project as a part of the of the security branch at [42 Silicon Valley](https://www.42.us.org). 
 The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/OpenSSL) functionality.
@@ -15,7 +15,8 @@ The goal was to recreate part of the [OpenSSL](https://en.wikipedia.org/wiki/Ope
 
 ## How to use?
 
-1. Build
+1. git clone https://github.com/agusev/42_md5.git
+2. Build
 
      `make`
 
